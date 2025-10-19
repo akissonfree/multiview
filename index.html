@@ -6,23 +6,19 @@
     <title>Multi View App - HEAVY METAL EDITION</title>
     
     <style>
-        /*
-         * ESTILO ROCK/METAL
-         */
-        
         /* Variáveis de Cores (Fácil de alterar se quiser) */
         :root {
-            --cor-fundo: #121212; /* Preto Quase Puro */
-            --cor-secundaria: #1f1f1f; /* Cinza Escuro */
-            --cor-destaque: #e82c2c; /* Vermelho Metal/Bordô */
-            --cor-texto: #e0e0e0; /* Branco Sujo / Prata */
+            --cor-fundo: #121212;
+            --cor-secundaria: #1f1f1f;
+            --cor-destaque: #e82c2c;
+            --cor-texto: #e0e0e0;
             --cor-input-fundo: #333333;
             --cor-input-texto: #ffffff;
         }
 
         /* CORPO E FUNDO */
         body {
-            font-family: 'Arial Black', Gadget, sans-serif; /* Fonte forte, emulado um estilo Rock */
+            font-family: 'Arial Black', Gadget, sans-serif;
             margin: 0;
             padding: 15px;
             background-color: var(--cor-fundo);
@@ -37,9 +33,9 @@
             padding: 15px;
             background-color: var(--cor-secundaria);
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra mais pesada */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             align-items: center;
-            border-left: 4px solid var(--cor-destaque); /* Destaque lateral */
+            border-left: 4px solid var(--cor-destaque);
         }
 
         /* CAMPO DE TEXTO */
@@ -51,7 +47,7 @@
             background-color: var(--cor-input-fundo);
             color: var(--cor-input-texto);
             font-size: 1em;
-            text-transform: uppercase; /* Estilo de rock */
+            text-transform: uppercase;
         }
         #siteUrl::placeholder {
             color: #888;
@@ -66,19 +62,19 @@
         #addButton {
             padding: 10px 20px;
             background-color: var(--cor-destaque);
-            color: black; /* Texto preto para alto contraste com o vermelho */
+            color: black;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-weight: 900; /* Extra bold */
+            font-weight: 900;
             font-size: 1em;
             text-transform: uppercase;
-            box-shadow: 0 3px 0 #900; /* Efeito 3D sutil */
+            box-shadow: 0 3px 0 #900;
             transition: all 0.1s;
         }
 
         #addButton:hover {
-            background-color: #ff4444; /* Vermelho mais claro ao passar o mouse */
+            background-color: #ff4444;
             box-shadow: 0 1px 0 #900;
             transform: translateY(2px);
         }
@@ -88,29 +84,29 @@
             margin-left: 20px;
             font-size: 1.2em;
             font-weight: 900;
-            color: var(--cor-destaque); /* Destaque em vermelho */
+            color: var(--cor-destaque);
             padding: 8px 12px;
             background-color: #000;
             border: 2px solid var(--cor-destaque);
             border-radius: 5px;
-            white-space: nowrap; 
+            white-space: nowrap;
             text-transform: uppercase;
         }
 
         /* MOSAICO */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
-            gap: 15px; /* Espaçamento maior */
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 15px;
         }
 
         .view-box {
-            border: 1px solid var(--cor-destaque); /* Borda em vermelho */
-            box-shadow: 0 0 10px rgba(232, 44, 44, 0.3); /* Brilho sutil */
+            border: 1px solid var(--cor-destaque);
+            box-shadow: 0 0 10px rgba(232, 44, 44, 0.3);
             background-color: #000;
-            aspect-ratio: 16 / 9; 
+            aspect-ratio: 16 / 9;
             overflow: hidden;
-            position: relative; 
+            position: relative;
             border-radius: 5px;
         }
 
@@ -125,7 +121,7 @@
             position: absolute;
             top: 5px;
             right: 5px;
-            background-color: var(--cor-destaque); /* Fundo vermelho */
+            background-color: var(--cor-destaque);
             color: black;
             border: 1px solid #000;
             border-radius: 3px;
@@ -137,15 +133,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            line-height: 1; 
-            z-index: 10; 
+            line-height: 1;
+            z-index: 10;
             transition: all 0.2s;
         }
 
         .close-button:hover {
-            background-color: #ff4444; 
+            background-color: #ff4444;
             color: white;
-            transform: scale(1.1); /* Efeito de destaque */
+            transform: scale(1.1);
         }
     </style>
     
@@ -161,9 +157,6 @@
         </div>
 
     <script>
-        /*
-         * CÓDIGO JAVASCRIPT OTIMIZADO (SEM ALTERAÇÕES)
-         */
         const urlInput = document.getElementById('siteUrl');
         const addButton = document.getElementById('addButton');
         const container = document.getElementById('gridContainer');
@@ -190,8 +183,17 @@
                 }
             }
             
-            const parentDomain = 'https://akissonfree.github.io'; 
-            const twitchEmbedUrl = `https://player.twitch.tv/?channel=${channelName}&parent=${parentDomain}&muted=true`;
+            // 🛑 SOLUÇÃO MAIS ROBUSTA PARA GITHUB PAGES: Envia todos os domínios possíveis
+            const parentDomains = [
+                'akissonfree.github.io', 
+                'www.akissonfree.github.io', // Para cobrir o caso de www.
+                'akissonfree.github.io/multiview' // Inclui o caminho completo
+                // Se o problema fosse local, você adicionaria: 'localhost', '127.0.0.1'
+            ]; 
+            const parentParams = parentDomains.map(d => `parent=${d}`).join('&');
+
+            // Constrói a URL final com todos os parâmetros 'parent'
+            const twitchEmbedUrl = `https://player.twitch.tv/?channel=${channelName}&${parentParams}&muted=true`;
             
             const viewBox = document.createElement('div');
             viewBox.className = 'view-box';
@@ -204,6 +206,8 @@
             iframe.setAttribute('allowfullscreen', 'true'); 
             iframe.setAttribute('scrolling', 'no'); 
             iframe.setAttribute('referrerpolicy', 'no-referrer'); 
+            // 🛑 Atributo de segurança CRÍTICO para navegadores rigorosos como o Brave:
+            iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'); 
             
             const closeButton = document.createElement('button');
             closeButton.className = 'close-button';
@@ -237,7 +241,4 @@
     </script>
     
 </body>
-
 </html>
-
-
